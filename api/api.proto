@@ -1,0 +1,17 @@
+// vrtchef plugin API
+syntax = "proto3";
+option go_package = "rproxy/api";
+package api;
+message Empty {}
+message CreateWorkerCrossReq { uint32 ID = 1; }
+message ReportWorkerCrossReq {
+  uint32 ID = 1;
+  uint32 Port = 2;
+}
+
+service RProxyAPI {
+  rpc Signon(Empty) returns (Empty);
+  rpc Signoff(Empty) returns (Empty);
+  rpc CreateWorkerCross(Empty) returns (stream CreateWorkerCrossReq) {}
+  rpc ReportWorkerCross(stream ReportWorkerCrossReq) returns (Empty) {}
+}
